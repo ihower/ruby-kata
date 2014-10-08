@@ -1,4 +1,4 @@
-== a Ruby Kata
+a rspec+guard+growl kata lab environment
 
 Setup
 ---
