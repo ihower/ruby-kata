@@ -23,7 +23,7 @@ describe BowlingGame do
     end
   end
 
-  xit "should score 90" do
+  it "should score 90" do
       game.roll(1)
       game.roll("/")
       game.roll(1)

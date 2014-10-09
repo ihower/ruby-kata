@@ -1,7 +1,10 @@
 class BowlingGame
 
+  attr_reader :score
+
   def initialize
-    @record =0
+    @score = 0
+    @record = []
   end
 
   def roll_many(*n)
@@ -11,11 +14,19 @@ class BowlingGame
   end
 
   def roll(n)
-    @record += n
+    @record << n
+
+    if n == "/"
+      @score += ( 10 - previous_ball )
+    else
+      @score += n
+    end
   end
 
-  def score
-    @record
+  private
+
+  def previous_ball
+    @record[-2]
   end
 
 end
