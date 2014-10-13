@@ -11,15 +11,32 @@ RSpec.describe Train, :type => :model do
     expect(train).to be_valid
   end
 
+  before do
+    @train = Train.create!( :name => "123")
+    @s1 = @train.seats.create!( :name => "1A")
+    @s2 = @train.seats.create!( :name => "2B")
+  end
+
+  describe ".reserve" do
+    it "should reserva seat" do
+      @train.reserve( "ihower@gmail.com", "2B")
+
+      expect(SeatReservation.count).to eq(1)
+      expect(Reservation.count).to eq(1)
+
+      sr = SeatReservation.last
+      s = Reservation.last
+
+      expect(sr.reservation.email).to eq("ihower@gmail.com")
+      expect(sr.seat).to eq(@s2)
+
+    end
+  end
 
   describe ".seats_by_date" do
+
     before do
-      @train = Train.create!( :name => "123")
-      @s1 = @train.seats.create!( :name => "1A")
-      @s2 = @train.seats.create!( :name => "2B")
-
       @reservation = Reservation.create!( :email => "ihower@gmail.com")
-
       SeatReservation.create!( :seat => @s1, :reservation => @reservation)
     end
 
