@@ -11,10 +11,10 @@ RSpec.describe TrainsController, :type => :controller do
     end
 
     it "should return train's seat data" do
-      get :show, :id => 416, :format => :json
+      get :show, { :id => @train.id, :format => :json }
 
       expect(assigns(:train)).to eq(@train)
-      #expect(response).to render_template(:show)
+      expect(response).to render_template(:show)
       expect(response).to have_http_status(200)
     end
 
