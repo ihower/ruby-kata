@@ -16,6 +16,7 @@ class Train < ActiveRecord::Base
     s = self.seats.find_by_name(seat)
 
     s.seat_reservations.create!( :reservation => r)
+    r
   end
 
 end
