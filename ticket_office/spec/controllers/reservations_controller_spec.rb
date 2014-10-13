@@ -19,6 +19,12 @@ RSpec.describe ReservationsController, :type => :controller do
       expect(response).to have_http_status(200)
     end
 
+    it "should raise error if seat not found" do
+      post :create, :train_id => @train.id, :seat => "99999", :email => "ihower@gmail.com"
+
+      expect(response.body).to eq( { "error" => "not found" }.to_json )
+      expect(response).to have_http_status(404)
+    end
   end
 
 end

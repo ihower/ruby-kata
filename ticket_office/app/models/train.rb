@@ -15,8 +15,12 @@ class Train < ActiveRecord::Base
     r = Reservation.create!( :email => email )
     s = self.seats.find_by_name(seat)
 
-    s.seat_reservations.create!( :reservation => r)
-    r
+    if s
+      s.seat_reservations.create!( :reservation => r)
+      r
+    else
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
 end
