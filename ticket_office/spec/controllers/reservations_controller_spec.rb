@@ -5,9 +5,7 @@ RSpec.describe ReservationsController, :type => :controller do
   describe "POST create" do
 
     before do
-      @train = Train.create!( :name => "123")
-      @train.seats.create!( :name => "1A")
-      @train.seats.create!( :name => "2B")
+      @train = create_train_and_seats
     end
 
     it "should reserve seats" do
