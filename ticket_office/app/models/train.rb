@@ -1,5 +1,8 @@
 class Train < ActiveRecord::Base
 
+  class SoldOutError < StandardError
+  end
+
   validates_presence_of :name
 
   has_many :seats
