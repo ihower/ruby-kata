@@ -1,3 +1,4 @@
+require 'csv'
 class Train < ActiveRecord::Base
 
   class SoldOutError < StandardError
@@ -6,6 +7,21 @@ class Train < ActiveRecord::Base
   validates_presence_of :name
 
   has_many :seats
+
+  def self.import_csv(filename)
+    successful = 0
+    failed = 0
+    CSV.read(filename).each do |row|
+      train = self.create( :name => row[0] )
+      if train.save
+        successful += 1
+      else
+        failed += 1
+      end
+    end
+
+    { :successful => successful, :failed => failed }
+  end
 
   def seats_by_date
     self.seats.map do |s|

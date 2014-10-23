@@ -2,6 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Train, :type => :model do
 
+  it "should import CSV" do
+    results = Train.import_csv("#{Rails.root}/spec/fixtures/trains.csv")
+
+    expect(results[:successful]).to eq(3)
+    expect(results[:failed]).to eq(1)
+
+    target_train = Train.last
+    expect(target_train.name).to eq("Train 104")
+  end
+
   it "should not be valid if blank name" do
     expect(Train.new).to_not be_valid
   end
